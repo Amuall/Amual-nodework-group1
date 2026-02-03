@@ -4,16 +4,17 @@ import mysql from 'mysql'
 import bodyparser from 'body-parser'
 
 dotenv.config()
+ 
 
 const app = express()
 app.use(bodyparser.json())
 
 
 const conn = mysql.createConnection({
-    host:'localhost',
-    user: 'root',
-    password:'',
-    database: 'localstudents'
+    host: process.env.HOST,
+    user: process.env.USER,
+    password: process.env.PASSWORD,
+    database: process.env.DATABASE
 })
 
 
@@ -68,7 +69,7 @@ app.delete('/student/:id',function(req,res){
         res.json({message: 'Deleted a student',results})
     })
 })
-app.listen(7000, () => {
+app.listen(process.env.PORT, () => {
     console.log('Server is running on port 7000')
 })
 
